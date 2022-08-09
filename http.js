@@ -1,44 +1,44 @@
 const http = require('node:http');
 
 const server = http.createServer((req, res) => {
-    console.log(req.url, req.method);
+  console.log(req.url, req.method);
 
-    const paths = req.url.split('/');
-    const path = path[path.length -1];
-    console.log('resource is', path);
+  const paths = req.url.split('/');
+  const path = paths[paths.length - 1];
+  console.log('resource is', path);
 
-    const resource = routes[path];
+  const resource = routes[path];
 
-    if(!resource) {
-        res.end('not found');
-        return;
-    }
+  if (!resource) {
+    res.end('not found');
+    return;
+  }
 
-    const route = resource [req.method];
-    if (route) {
-        route(req, res);
-    }
+  const route = resource[req.method];
+  if (route) {
+    route(req, res);
+  }
 });
 
 server.listen(3500, () => {
-    console.log('server started', server.address());
+  console.log('server started', server.address());
 });
 
 const routes = {
-    users : {
-        GET(req, res) {
-            res.end('user GET');
-        },
-        POST(req, res) {
-            res.end('users POST');
-        },
+  users: {
+    GET(req, res) {
+      res.end('users GET');
     },
-    inventory: {
-        GET(req,res) {
-            res.end('inventory GET');
-        },
-        POST(req,res){
-            res.end('inventory POST');
-        },
-    }
+    POST(req, res) {
+      res.end('users POST');
+    },
+  },
+  pets: {
+    GET(req, res) {
+      res.end('pets GET');
+    },
+    POST(req, res) {
+      res.end('pets POST');
+    },
+  },
 };
