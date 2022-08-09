@@ -50,7 +50,7 @@ describe('/api/v1/auth', () => {
       .send({ ...credentials, email: 'bad@email.com' });
 
     expect(res.statusCode).toBe(400);
-    expect(res.body.status).toEqual({
+    expect(res.body).toEqual({
       status: 400,
       message: 'Invalid Credentials'
     });
