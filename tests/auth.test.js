@@ -52,7 +52,7 @@ describe('/api/v1/auth', () => {
     expect(res.statusCode).toBe(400);
     expect(res.body.status).toEqual({
       status: 400,
-      message: 'Invalid Credentials',
+      message: 'Invalid Credentials'
     });
 
     const res2 = await request(app)
@@ -62,7 +62,7 @@ describe('/api/v1/auth', () => {
     expect(res2.statusCode).toBe(400);
     expect(res2.body).toEqual({
       status: 400,
-      message: 'Invalid credentials',
+      message: 'Invalid Credentials',
     });
   });
 
