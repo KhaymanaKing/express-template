@@ -1,6 +1,6 @@
 const pool = require('../lib/utils/pool.js');
 const { readFileSync } = require('node:fs');
-const sql = readFileSync('./sql/setup-sql', 'utf-8');
+const sql = readFileSync('./sql/setup.sql', 'utf-8');
 const request = require('supertest');
 const app = require('../lib/app');
 
