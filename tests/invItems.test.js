@@ -35,11 +35,11 @@ describe('/api/v1/inventory', () => {
       qty: 500 
     });
 
-    const res1 =  agent.get('/api/v1/inventory');
+    const res1 =  await agent.get('/api/v1/inventory');
     expect(res1.status).toEqual(200);
     expect(res1.body).toEqual([user1Item]);
   
-    const res2 = agent2.get('/api/v1/inventory');
+    const res2 = await agent2.get('/api/v1/inventory');
     expect(res2.status).toEqual(200);
     expect(res2.body).toEqual([user2Item]);
   });
