@@ -10,7 +10,7 @@ CREATE TABLE users (
 CREATE TABLE inventory (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id BIGINT,
-    description VARCHAR NOT NULL,
+    item VARCHAR NOT NULL,
     qty INT,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     FOREIGN KEY (user_id) REFERENCES users(id)
