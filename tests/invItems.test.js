@@ -68,8 +68,29 @@ describe('/api/v1/inventory', () => {
     const { status, body: updated } = await agent
       .put(`/api/v1/inventory/${item.id}`)
       .send({ qty: 5 });
-    console.log('pizza', item);
     expect(status).toBe(200);
     expect(updated).toEqual({ ...item, qty: 5 });
   });
+  it('UPDATE /:id should 403 for invalid users', async () => {
+    const { agent } = await signUpUser();
+
+    const { body: item } = await agent.post('/api/v1/inventory').send({
+      item: 'bears',
+      qty: 3
+    });
+
+    const { agent: agent2 } = await signUpUser({
+      email: 'pasta@roni.com',
+      password: 'meatball'
+    });
+    const { status, body } = await agent2
+      .put(`/api/v1/inventory/${item.id}`)
+      .send({ qty: 200 });
+    expect(status).toBe(403);
+    expect(body).toEqual({
+      status: 403,
+      message: 'No access'
+    });
+  });
+  
 });
