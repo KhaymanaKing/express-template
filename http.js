@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 const http = require('node:http');
-
+//also no idea how this actually works 
 const server = http.createServer((req, res) => {
   console.log(req.url, req.method);
 

@@ -1,5 +1,5 @@
 // eslint-disable no-console
-
+//this is for setting server for testing? 
 const http = require('node:http');
 const app = require('./lib/app');
 const pool = require('./lib/utils/pool');
