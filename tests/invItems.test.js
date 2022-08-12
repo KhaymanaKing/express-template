@@ -1,7 +1,6 @@
 const request = require('supertest');
 const { setupDb, signUpUser } = require ('./utils.js');
 const app = require('../lib/app');
-const { signedCookie } = require('cookie-parser');
 
 
 describe('/api/v1/inventory', () => {
@@ -92,5 +91,19 @@ describe('/api/v1/inventory', () => {
       message: 'No access'
     });
   });
-  
+  it('DELETE /:id should delete item for a valid user', async () => {
+    const { agent } = await signUpUser();
+    const { body : item } = await  agent.post('/api/v1/inventory').send({
+      item: 'snacks',
+      qty: 4
+    });
+    const { status, body } = await agent.delete(`/api/v1/inventory/${item.id}`);
+    expect(status).toBe(200);
+    expect(body).toEqual(item);
+
+    const { body: items } = await agent.get('/api/v1/inventory');
+
+    expect(items.length).toBe(0);
+
+  });
 });
