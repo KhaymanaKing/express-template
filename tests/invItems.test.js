@@ -54,4 +54,8 @@ describe('/api/v1/inventory', () => {
     expect(status).toBe(200);
     expect(got).toEqual(item);
   });
+  it('GET / should return a 401 if not authenticated', async() => {
+    const { status } = await request(app).get('/api/v1/inventory');
+    expect(status).toEqual(401);
+  });
 });
