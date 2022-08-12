@@ -1,6 +1,7 @@
 const request = require('supertest');
 const { setupDb, signUpUser } = require ('./utils.js');
 const app = require('../lib/app');
+const { signedCookie } = require('cookie-parser');
 
 
 describe('/api/v1/inventory', () => {
@@ -42,5 +43,15 @@ describe('/api/v1/inventory', () => {
     const res2 = await agent2.get('/api/v1/inventory');
     expect(res2.status).toEqual(200);
     expect(res2.body).toEqual([user2Item]);
+  });
+  it('Get /:id should retrieve one item', async () => {
+    const { agent } = await signUpUser();
+    const { body: item } = await agent.post('/api/v1/inventory').send({
+      item: 'pork rinds', 
+      qty: 500
+    });
+    const { status, body: got } = await agent.get(`/api/v1/inventory/${item.id}`);
+    expect(status).toBe(200);
+    expect(got).toEqual(item);
   });
 });
